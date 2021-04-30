@@ -47,7 +47,9 @@ export class EndTestLinkComponent {
         onTerminate: this.onTerminate,
         shouldAuthenticate: this.shouldAuthenticate,
       },
-      // cssClass: 'mes-modal-alert text-zoom-regular',
+      cssClass: 'mes-modal-alert',
+      showBackdrop: true,
+      backdropDismiss: false,
     });
     await this.terminateTestModal.present();
   }
