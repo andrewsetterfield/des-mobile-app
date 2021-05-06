@@ -56,6 +56,7 @@ import { AppInfoStoreModule } from '@store/app-info/app-info.module';
 import { TestsModule } from '@store/tests/tests.module';
 import { TestCentreJournalStoreModule } from '@store/test-centre-journal/test-centre-journal.module';
 import { DeviceAuthenticationProvider } from '@providers/device-authentication/device-authentication';
+import { CompletedTestPersistenceProvider } from '@providers/completed-test-persistence/completed-test-persistence';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RemoteDevToolsProxy } from '../../ngrx-devtool-proxy/remote-devtools-proxy';
@@ -152,6 +153,7 @@ if (enableRehydrationPlugin) {
     SchemaValidatorProvider,
     EmmAppConfig,
     TestPersistenceProvider,
+    CompletedTestPersistenceProvider,
     CategoryWhitelistProvider,
     TestCentreJournalProvider,
     RouteByCategoryProvider,
