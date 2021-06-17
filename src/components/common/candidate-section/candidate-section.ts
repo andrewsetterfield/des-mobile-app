@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { VRNCaptureModal } from '@components/common/vrn-capture-modal/vrn-capture-modal';
 import { StoreModel } from '@shared/models/store.model';
 import { VehicleRegistrationChanged } from '@store/tests/vehicle-details/vehicle-details.actions';
-import { FieldValidators, getRegistrationNumberValidator } from '@shared/constants/field-validators/field-validators';
 
 @Component({
   selector: 'candidate-section',
@@ -29,8 +28,6 @@ export class CandidateSectionComponent {
 
   @Output()
   continueClickEvent = new EventEmitter<boolean>();
-
-  readonly registrationNumberValidator: FieldValidators = getRegistrationNumberValidator();
 
   vrnModal: HTMLIonModalElement;
 

@@ -4,9 +4,7 @@ import { NavParams } from '@ionic/angular';
 import {
   FieldValidators,
   getRegistrationNumberValidator,
-  nonAlphaNumericValues,
 } from '@shared/constants/field-validators/field-validators';
-import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'vrn-capture-modal',
@@ -21,11 +19,7 @@ export class VRNCaptureModal {
 
   vehicleRegistration: string;
 
-  isValid: boolean;
-
   formGroup: FormGroup;
-
-  formControl: FormControl;
 
   readonly registrationNumberValidator: FieldValidators = getRegistrationNumberValidator();
 
@@ -35,29 +29,25 @@ export class VRNCaptureModal {
     this.onCancel = this.navParams.get('onCancel');
     this.onSave = this.navParams.get('onSave');
     this.formGroup = new FormGroup({});
-    this.formControl = new FormControl(null, [Validators.required]);
-    this.formGroup.addControl('vehicleRegistration', this.formControl);
+    this.formGroup.addControl(
+      'vehicleRegistration', new FormControl(
+        null, [
+          Validators.required,
+          Validators.pattern(/[A-Z0-9]{1,7}$/gi),
+          Validators.maxLength(parseInt(getRegistrationNumberValidator().maxLength, 10)),
+        ],
+      ),
+    );
   }
 
-  vehicleRegistrationNumberChanged(vehicleRegistration: string): void {
-    if (!this.registrationNumberValidator.pattern.test(vehicleRegistration)) {
-      const value = vehicleRegistration.replace(nonAlphaNumericValues, '');
+  vehicleRegistrationChanged(vehicleRegistration): void {
+    this.vehicleRegistration = vehicleRegistration;
+  }
 
-      if (isEmpty(value)) {
-        this.formControl.setErrors({ value });
-      }
+  validateAndSave(): void {
+    if (/[A-Z0-9]{1,7}$/gi.test(this.vehicleRegistration)) {
+      this.onSave(this.vehicleRegistration);
     }
-    this.formControl.patchValue(this.vehicleRegistration);
-  }
-
-  async validateThenSave() {
-    if (this.registrationNumberValidator.pattern.test(this.vehicleRegistration)) {
-      await this.onSave(this.vehicleRegistration);
-    }
-  }
-
-  get invalid(): boolean {
-    return !this.formControl.valid && this.formControl.dirty;
   }
 
 }
