@@ -2,8 +2,11 @@ import {
   browser,
 } from 'protractor';
 import { TEST_CONFIG } from '../test.config';
+import LoginPage from '../pages/loginPage';
+import DashboardPage from '../pages/dashboardPage';
 
 const {
+  Given,
   Then,
   When,
   setDefaultTimeout,
@@ -37,8 +40,41 @@ When('I launch the mobile app', () => {
 
 Then('I should see the {string} page', (pageTitle) => {
   const dashboardTitle = '//ion-title[normalize-space(text()) = "My dashboard"]';
-  return expect(dashboardTitle)
-    .to.equal(`//ion-title[normalize-space(text()) = "${pageTitle}"]`);
+  return expect(dashboardTitle).to.equal(`//ion-title[normalize-space(text()) = "${pageTitle}"]`);
+});
+
+Given('I am not logged in', () => {
+  // Wait for app to be ready
+  browser.sleep(TEST_CONFIG.PAGE_LOAD_WAIT);
+  browser.waitForAngular();
+
+  DashboardPage.openBurgerMenu();
+  // Log out if we are logged in
+  LoginPage.logout();
+
+  browser.driver.getCurrentContext().then((webviewContext) => {
+    // Switch to NATIVE context
+    browser.driver.selectContext('NATIVE_APP').then(() => {
+      // Wait until we are on the login page before proceeding
+      LoginPage.getToSignInPopUp();
+
+      // Switch back to WEBVIEW context
+      browser.driver.selectContext(LoginPage.getParentContext(webviewContext));
+    });
+  });
+});
+
+Given('I open the burger menu', () => {
+  DashboardPage.openBurgerMenu();
+});
+
+When('I log in to the application as {string}', (username) => {
+  LoginPage.login(username);
+
+  // If the dashboard has loaded we should see the employee id
+  // todo: kc seems we should also see employee id if landing page is loaded (see ln 107) which is right?
+  const employeeId = DashboardPage.getEmployeeId(username);
+  return expect(employeeId.isPresent()).to.eventually.be.true;
 });
 
 When(/^I wait "([^"]*)" seconds?$/, { timeout: 2 * 5000 }, async (seconds) => {
