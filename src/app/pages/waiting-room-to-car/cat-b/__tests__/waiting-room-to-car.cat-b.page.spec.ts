@@ -1,5 +1,5 @@
 import {
-  async, ComponentFixture, fakeAsync, TestBed, tick,
+  ComponentFixture, fakeAsync, TestBed, tick, waitForAsync,
 } from '@angular/core/testing';
 import { IonicModule, Platform } from '@ionic/angular';
 import { PlatformMock } from 'ionic-mocks';
@@ -67,8 +67,8 @@ import { TestFlowPageNames } from '@pages/page-names.constants';
 import { TestsModel } from '@store/tests/tests.model';
 import { AppInfoStateModel } from '@store/app-info/app-info.model';
 
+import { AppModule } from '@app/app.module';
 import { WaitingRoomToCarCatBPage } from '../waiting-room-to-car.cat-b.page';
-import { AppModule } from '../../../../app.module';
 
 describe('WaitingRoomToCarCatBPage', () => {
   let component: WaitingRoomToCarCatBPage;
@@ -134,7 +134,7 @@ describe('WaitingRoomToCarCatBPage', () => {
     });
   });
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     fixture = TestBed.createComponent(WaitingRoomToCarCatBPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
