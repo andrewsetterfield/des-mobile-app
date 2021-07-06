@@ -104,6 +104,7 @@
     "protractor": "^7.0.0",
     "rxjs": "~6.6.7",
     "rxjs-compat": "^6.6.3",
+    "sentry-cordova": "^1.0.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },
@@ -175,7 +176,8 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-google-analytics": {},
-      "cordova-plugin-autonomous-single-app-mode": {}
+      "cordova-plugin-autonomous-single-app-mode": {},
+      "sentry-cordova": {}
     },
     "platforms": [
       "ios"
@@ -186,5 +188,8 @@
       "pre-commit": "npm run lint:fix",
       "pre-push": "run-s test gitSecrets scanRepo"
     }
+  },
+  "config": {
+    "ionic_generate_source_map": "true"
   }
 }
