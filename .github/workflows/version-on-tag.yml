@@ -29,5 +29,5 @@ jobs:
           node-version: 14.7.0
       - name: run the version script
         run: |
-          npm ci
+          npm i xml2js
           npm run set-version 1.2.3.4
