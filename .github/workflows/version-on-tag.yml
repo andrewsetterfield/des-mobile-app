@@ -30,4 +30,3 @@ jobs:
       - name: run the version script
         run: |
           npm i xml2js
-          npm run set-version 1.2.3.4
