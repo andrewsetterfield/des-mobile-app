@@ -29,4 +29,4 @@ jobs:
           node-version: 14.7.0
       - name: run the version script
         run: |
-          npm i
+          node -v
