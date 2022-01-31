@@ -44,10 +44,10 @@ jobs:
 #                print(f)
 # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-    - uses: rvolo/xml-replace-action@v0.2
+    - uses: rvolo/xml-replace-action@v0.3
       with:
         filepath: "config.xml"
-        xpath: "//widget/name/text()"
+        xpath: "/widget[@version]"
         replace: "5000"
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
