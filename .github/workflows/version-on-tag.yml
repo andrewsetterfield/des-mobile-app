@@ -33,7 +33,7 @@ jobs:
 #          pwd
 #          npm run set-version 15.5.5.5
     steps:
-      - uses: actions/checkout@v2
+#      - uses: actions/checkout@v2
 #      - uses: actions/setup-python@v2
 #      - uses: jannekem/run-python-script-action@v1
 #        with:
@@ -42,8 +42,9 @@ jobs:
 #            print("Directory contents:")
 #            for f in os.listdir():
 #                print(f)
-    - name: Set logback env values
-      uses: rvolo/xml-replace-action@v0.2
+# Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - uses: rvolo/xml-replace-action@v0.2
       with:
         filepath: "config.xml"
         xpath: "//widget/name/text()"
