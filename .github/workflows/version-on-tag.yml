@@ -47,7 +47,7 @@ jobs:
     - uses: rvolo/xml-replace-action@v0.3
       with:
         filepath: "config.xml"
-        xpath: "/widget[@version]"
+        xpath: "widget[@version]"
         replace: "5000"
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
